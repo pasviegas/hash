@@ -1,4 +1,5 @@
 package com.pasviegas.discounts.api.v1
+
 import com.pasviegas.discounts.api.core.streams.BidirectionalStream
 import com.pasviegas.discounts.api.v1.methods.GetDiscounts
 import com.pasviegas.discounts.database.Repository
@@ -18,15 +19,14 @@ class ApiV1Service(repository: Repository, rules: RulesRegistry[_]) extends ApiG
 
 object ApiV1Service {
 
-  /**
+  /** Creates a [[ServerServiceDefinition]] of the [[ApiV1Service]] from the provided parameters
     *
-    * @param repository
-    * @param rules
-    * @param executor
-    * @return
+    * @param repository - the application repository responsible for fetching any necessary data for the service
+    * @param rules            - the application rule registry responsible for apply all active rules
+    * @param executionContext - the execution that the service will run on
     */
   def apply(repository: Repository,
             rules: RulesRegistry[_],
-            executor: ExecutionContextExecutor): ServerServiceDefinition =
-    ApiGrpc.bindService(new ApiV1Service(repository, rules), executor)
+            executionContext: ExecutionContextExecutor): ServerServiceDefinition =
+    ApiGrpc.bindService(new ApiV1Service(repository, rules), executionContext)
 }
